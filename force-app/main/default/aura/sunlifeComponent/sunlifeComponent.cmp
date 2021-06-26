@@ -1,0 +1,31 @@
+<aura:component controller="sunlifeClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name ="searchString" type="string"/>
+    <aura:attribute name ="listAcc" type="Account[]"/>
+    <aura:attribute name ="listAccbackup" type="Account[]"/>
+    <aura:attribute name ="listAccdemo" type="Account[]"/>  
+     <aura:attribute name ="contactColumns" type="List"/> 
+    <aura:attribute name="sortedBy" type="string" default="Name"/>
+    <aura:attribute name="sortedDirection" type="string" default="asc"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:card>
+        <aura:set attribute="title">
+            <div>Financial Services Account Listing</div>
+        </aura:set>
+        <lightning:layout>
+            <lightning:layoutitem flexibility="auto" size="6">
+                <lightning:input label="searchByName" type="text" value="{!v.searchString}" onchange="{!c.searchAcc}"/> 
+            </lightning:layoutitem>
+        </lightning:layout>
+   <br></br>
+        <lightning:datatable class="tabStyle"
+                             data ="{!v.listAcc}"
+                             columns ="{!v.contactColumns}"
+                             keyField="id"
+                             onsort="{!c.updateSorting}"
+                             sortedBy="{!v.sortedBy}"
+                             sortedDirection="{!v.sortedDirection}">
+        </lightning:datatable>
+        
+    </lightning:card>
+</aura:component>
